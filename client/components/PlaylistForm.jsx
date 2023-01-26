@@ -58,7 +58,7 @@ const PlaylistForm = (props) => {
     
   }
 
-  // if add new genre is selected in the genre dropdown
+  // if 'add new genre' is selected in the genre dropdown
 
 
   return (
