@@ -52,6 +52,11 @@ router.post('/getPlaylist',
   }
 );
 
+router.get('/getGenres', playlistController.getGenres, (req, res) => {
+  console.log('it worked!!!!')
+  res.status(200).json(res.locals.genres)
+})
+
 /*
   STRETCH consideration: need to invoke wrapper method to refreshToken after token expires
     subproblem: how to detect token expiration? maybe when API call middleware errors

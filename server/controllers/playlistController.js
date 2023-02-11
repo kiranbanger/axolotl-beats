@@ -2,6 +2,17 @@ const spotifyApi = require("../utils/apiWrapper");
 
 const playlistController = {};
 
+playlistController.getGenres = async (req, res, next) => {
+  spotifyApi.setAccessToken(req.cookies.access)
+  spotifyApi.setRefreshToken(req.cookies.refresh)
+
+  const data = await spotifyApi.getAvailableGenreSeeds()
+  let genres = data.body
+  console.log('The genres are: ', genres)
+  res.locals.genres = genres;
+  return next()
+}
+
 // create a new playlist in user's account 
 playlistController.createPlaylist = async (req, res, next) => {
   try {
@@ -132,10 +143,4 @@ playlistController.addTracks = async (req, res, next) => {
   }
 }
 
-// get all genres from spotify
-playlistController.getGenres = async (req, res, next) => {
-  const genres = await spotifyApi.getRecommendations({
-    
-  })
-}
 module.exports = playlistController;
