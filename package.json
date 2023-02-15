@@ -8,6 +8,8 @@
     "build": "webpack",
     "devStart": "nodemon server/server.js",
     "dev": "webpack serve --open",
+    "format": "prettier --write \"{client,server}/**/*.{js,jsx}\"",
+    "lint": "eslint \"{client,server}/**/*.{js,jsx}\" --quiet",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

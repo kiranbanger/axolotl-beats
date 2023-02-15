@@ -26,7 +26,6 @@ const PlaylistFormGenres = (props) => {
             return <option value={genre}>{genre}</option>
           })
           }
-          <option value="add-new-genre">Add New Genre</option>
         </select>
       </label>
     </div>
