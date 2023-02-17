@@ -1,6 +1,6 @@
-const SpotifyWebApi = require('spotify-web-api-node');
+const SpotifyWebApi = require("spotify-web-api-node");
 // processes .env into process.env
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
 
 // create instance of SpotifyWebApi object, export it
@@ -8,7 +8,7 @@ dotenv.config();
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  redirectUri: process.env.REDIRECT_URI
+  redirectUri: process.env.REDIRECT_URI,
 });
 
 // console.log('client id:', process.env.CLIENT_ID);
