@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import PlaylistFormGenres from './PlaylistFormGenres.jsx';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import PlaylistFormGenres from "./PlaylistFormGenres.jsx";
 
 const PlaylistForm = (props) => {
   // props.updatePlaylistId("TEST ARGUMENT 123324732473289");
   const [showButton, setShowButton] = useState(false);
 
-
   // onsubmit click handler for create playlist form and send to backend
   const handlePlaylistSubmit = async (event) => {
     // prevent immediately reloading of page when form is submitted
     event.preventDefault();
-    
+
     // add input from form to constants genre, tempo, and duration
     const playlistName = event.target[0].value;
     const playlistDescription = event.target[1].value;
@@ -20,72 +19,70 @@ const PlaylistForm = (props) => {
     // change this in the form and cast as a number
     const duration = parseInt(event.target[4].value);
 
-    console.log('type of duration', typeof duration);
+    console.log("type of duration", typeof duration);
 
     // package form-data into an object
-    const requestData = { playlistName, playlistDescription, genre, tempo, duration };
+    const requestData = {
+      playlistName,
+      playlistDescription,
+      genre,
+      tempo,
+      duration,
+    };
     console.log(requestData);
     // get request to backend, with body as requestData
     // use await
     const requestOptions = {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(requestData),
     };
     // declare const for endpoint to submit playlist form data to
-    const playlistSubmitUrl = '/api/getPlaylist';
+    const playlistSubmitUrl = "/api/getPlaylist";
 
-    // attempting to do fetch with async / await and try/catch block 
+    // attempting to do fetch with async / await and try/catch block
     try {
       // make request to backend and save response to const
       const response = await fetch(playlistSubmitUrl, requestOptions);
       const playlist = await response.json();
-      console.log('playlist id:', playlist);
-      // TODO: save playlist data to state and render Spotify iFrame component 
+      console.log("playlist id:", playlist);
+      // TODO: save playlist data to state and render Spotify iFrame component
       // potentially redirect user as well to new landing page with Spotify iFrame component
       // invoke props.updatePlaylistId, passing in test ID
       props.updatePlaylistId(playlist);
 
       // display button
       setShowButton(true);
-
-
-    } catch (error) { // handle errors
-      console.log('Fetch error is:', error);
+    } catch (error) {
+      // handle errors
+      console.log("Fetch error is:", error);
     }
-    
-  }
+  };
 
   // if 'add new genre' is selected in the genre dropdown
 
-
   return (
-  <div>
-    <div className='formContainer'>
-      <form className='playlist-form' onSubmit={handlePlaylistSubmit}>
+    <div>
+      <div className="formContainer">
+        <form className="playlist-form" onSubmit={handlePlaylistSubmit}>
+          <div className="div_input-container">
+            What is the name of your new playlist?
+            <label className="input-label">
+              <input className="inputBox"></input>
+            </label>
+          </div>
 
-        <div className="div_input-container">
-          What is the name of your new playlist?
-          <label className='input-label'>
-            <input className='inputBox'>
-            </input>
+          <div className="div_input-container">
+            What is the description of your new playlist?
+            <label className="input-label">
+              <input className="inputBox"></input>
+            </label>
+          </div>
 
-          </label>
-        </div>
-
-        <div className="div_input-container">
-        What is the description of your new playlist?
-          <label className='input-label'>
-            <input className='inputBox'>
-            </input>
-
-          </label>
-        </div>
-
-        <PlaylistFormGenres />
-{/* 
+          <PlaylistFormGenres />
+          {/* 
         <div className='dropdown-container'>
           <label className='dropdown-label'>
             What genre are you in the mood for?<br/>
@@ -101,38 +98,50 @@ const PlaylistForm = (props) => {
           </label>
         </div> */}
 
-        <div className='dropdown-container'>
-          <label className='dropdown-label'>
-            What tempo would you like your playlist to follow?<br/>
-            <select className='dropdown-menu'>
-              <option disabled selected>Select Your Tempo</option>
-              <option value="fast">Fast</option>
-              <option value="slow">Slow</option>
-            </select>
+          <div className="dropdown-container">
+            <label className="dropdown-label">
+              What tempo would you like your playlist to follow?
+              <br />
+              <select className="dropdown-menu">
+                <option disabled selected>
+                  Select Your Tempo
+                </option>
+                <option value="fast">Fast</option>
+                <option value="slow">Slow</option>
+              </select>
             </label>
-        </div>
+          </div>
 
-        <div className='dropdown-container'>
-          <label className='dropdown-label'>
-          How long would you like your playlist to last?<br/>
-            <select className='dropdown-menu'>
-              <option disabled selected>Select Your Duration</option>
-              <option value="30">30 minutes</option>
-              <option value="60">60 minutes</option>
-              <option value="90">90 minutes</option>
-            </select>
-          </label>
-        </div>
+          <div className="dropdown-container">
+            <label className="dropdown-label">
+              How long would you like your playlist to last?
+              <br />
+              <select className="dropdown-menu">
+                <option disabled selected>
+                  Select Your Duration
+                </option>
+                <option value="30">30 minutes</option>
+                <option value="60">60 minutes</option>
+                <option value="90">90 minutes</option>
+              </select>
+            </label>
+          </div>
 
-        <input className='makePlaylist' type="submit" value="Give me my playlist!"/>
+          <input
+            className="makePlaylist"
+            type="submit"
+            value="Give me my playlist!"
+          />
+        </form>
 
-      </form>
-
-      {showButton && <Link to='/player'><button className='makePlaylist'>Take me to my new playlist</button></Link>}
-
+        {showButton && (
+          <Link to="/player">
+            <button className="makePlaylist">Take me to my new playlist</button>
+          </Link>
+        )}
+      </div>
     </div>
-  </div>
-  )
+  );
 };
 
 export default PlaylistForm;

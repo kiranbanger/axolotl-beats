@@ -1,39 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import PlaylistFormAddGenre from './PlaylistFormAddGenre.jsx';
+import React, { useEffect, useState } from "react";
 
-const PlaylistFormGenres = (props) => {
+const PlaylistFormGenres = () => {
   // if add new genre is selected display the PlaylistFormAddGenre component
   const [dropdownValues, setDropdownValues] = useState([]);
 
   useEffect(() => {
     fetchGenres();
-  },[])
+  }, []);
 
   const fetchGenres = async () => {
-    let response = await fetch('/api/getGenres')
-    let genres = await response.json()
-    setDropdownValues(genres.genres)
-  }
+    let response = await fetch("/api/getGenres");
+    let genres = await response.json();
+    setDropdownValues(genres.genres);
+  };
 
-  return(
+  return (
     <div>
-    <div className='dropdown-container'>
-      <label className='dropdown-label'>
-        What genre are you in the mood for?<br/>
-        <select className='dropdown-menu'>
-          <option disabled selected>Select Your Genre</option>
-          {dropdownValues.map( genre => {
-            return <option value={genre}>{genre}</option>
-          })
-          }
-        </select>
-      </label>
+      <div className="dropdown-container">
+        <label className="dropdown-label">
+          What genre are you in the mood for?
+          <br />
+          <select className="dropdown-menu">
+            <option disabled selected>
+              Select Your Genre
+            </option>
+            {dropdownValues.map((genre) => {
+              return (
+                <option key={genre} value={genre}>
+                  {genre}
+                </option>
+              );
+            })}
+          </select>
+        </label>
+      </div>
     </div>
-    <div>
-      {dropdownValues === 'add-new-genre' && <PlaylistFormAddGenre/>}
-    </div>
-    </div>
-  )
-}
+  );
+};
 
 export default PlaylistFormGenres;

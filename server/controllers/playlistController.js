@@ -8,7 +8,6 @@ playlistController.getGenres = async (req, res, next) => {
 
   const data = await spotifyApi.getAvailableGenreSeeds();
   let genres = data.body;
-  console.log("The genres are: ", genres);
   res.locals.genres = genres;
   return next();
 };
@@ -16,7 +15,7 @@ playlistController.getGenres = async (req, res, next) => {
 // create a new playlist in user's account
 playlistController.createPlaylist = async (req, res, next) => {
   try {
-    const { genre, playlistName, playlistDescription } = req.body;
+    const { playlistName, playlistDescription } = req.body;
     spotifyApi.setAccessToken(req.cookies.access);
     spotifyApi.setRefreshToken(req.cookies.refresh);
     const data = await spotifyApi.createPlaylist(`${playlistName}`, {
